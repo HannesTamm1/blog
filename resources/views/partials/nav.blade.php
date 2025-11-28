@@ -8,56 +8,41 @@
                 </svg>
             </div>
             <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li><a>Item 1</a></li>
-                <li>
-                    <a>Parent</a>
-                    <ul class="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                </li>
-                <li><a>Item 3</a></li>
+                <li><a href="/">@lang('Home')</a></li>
+                <li><a href="{{ route('posts.index') }}">@lang('Posts')</a></li>
             </ul>
         </div>
-        <a href="/" class="btn btn-ghost text-xl">daisyUI</a>
+        <a href="/" class="btn btn-ghost text-xl font-semibold">@lang('My Blog')</a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-            <li><a>Item 1</a></li>
-            <li>
-                <details>
-                    <summary>Admin</summary>
-                    <ul class="p-2">
-                        <li><a href="{{route('posts.index')}}">Posts</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                </details>
-            </li>
-            <li><a>Item 3</a></li>
+            <li><a href="/">@lang('Home')</a></li>
+            <li><a href="{{ route('posts.index') }}">@lang('Posts')</a></li>
         </ul>
     </div>
     <div class="navbar-end gap-2">
         @auth
-            <ul class="menu menu-horizontal px-1 z-10">
-
-                <li>
-                    <details>
-                        <summary>{{ auth()->user()->name }}</summary>
-                        <ul class="p-2">
-                            <li><a href="{{ route('profile.edit') }}">@lang('Profile')</a></li>
-                            <li>
-                                <form action="{{route('logout')}}" method="POST">
-                                    @csrf
-                                    <button>@lang('Logout')</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
-        </ul>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost">
+                    <span>{{ auth()->user()->name }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6" />
+                    </svg>
+                </div>
+                <ul tabindex="-1" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-48">
+                    <li><a href="{{ route('profile.edit') }}">@lang('Profile')</a></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button>@lang('Logout')</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         @else
             <a href="{{ route('login') }}" class="btn btn-primary">@lang('Login')</a>
-            <a href="{{ route('register') }}" class="btn btn-success">@lang('Register')</a>
+            <a href="{{ route('register') }}" class="btn btn-outline">@lang('Register')</a>
         @endauth
     </div>
 </div>
